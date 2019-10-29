@@ -1,0 +1,94 @@
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import { getAllPosts, getPostByUsername, deletePost } from "../../redux/PostReducer";
+
+
+class Dashboard extends Component {
+    constructor() {
+        super();
+        this.state = {
+            searchBox: ""
+        }
+    }
+
+    componentDidMount() {
+        this.props.getAllPosts();
+    }
+
+    componentDidUpdate(prevProps) {
+        if (prevProps === this.props.posts.username || this.state.searchBox !== "") {
+            return null
+        } else {
+            this.props.getAllPosts();
+        }
+    }
+
+    handleInputChange = e => {
+        this.setState({ [e.target.name]: e.target.value })
+    }
+
+    handleSearch = () => {
+        const { searchBox } = this.state;
+
+        this.props.getPostByUsername(searchBox);
+    }
+
+    clearSearchInput = () => {
+        this.setState({ searchBox: "" })
+    }
+
+    deletePost = (post_id) => {
+        this.props.deletePost(post_id);
+        this.props.getAllPosts();
+    }
+
+    render() {
+        const postMapped = this.props.posts.map((post, i) => {
+            return (
+                <div className="post-background" key={i}>
+                    <h1>hi</h1>
+                    <Link to={`/post/${post.post_id}`} style={{ textDecoration: "none" }}>
+                        <div key={i} className="post-info" onClick={this.seePost}>
+                            <div className="dashboard-post-title">
+                                <h1>{post.title}</h1>
+                            </div>
+                            <div className="dashboard-user-info">
+                                <h1>by {post.username}</h1>
+                                <img alt="pic" src={post.profile_pic} />
+                                {/* <h1>swaggggggggggggg</h1> */}
+                            </div>
+                        </div>
+                    </Link>
+                </div>
+            )
+        })
+
+        return (
+            <div className="mapped-posts">
+                <div className="search-box">
+                    <input
+                        type="text"
+                        name="searchBox"
+                        value={this.state.searchBox}
+                        onChange={this.handleInputChange} />
+                    <button onClick={this.handleSearch}>Search</button>
+                    <button onClick={this.clearSearchInput}>Clear</button>
+                    <button onClick={() => this.props.getAllPosts()}>Get All Posts</button>
+                </div>
+                <br />
+                {postMapped}
+            </div>
+        );
+    }
+}
+
+const mapStateToProps = reduxState => {
+    return {
+        user_id: reduxState.userReducer.user_id,
+        username: reduxState.userReducer.username,
+        posts: reduxState.postReducer.posts
+    }
+}
+
+export default connect(mapStateToProps, { getAllPosts, getPostByUsername, deletePost })(Dashboard);

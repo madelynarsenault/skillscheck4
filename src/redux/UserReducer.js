@@ -1,9 +1,10 @@
 import axios from 'axios';
 
 const initialState ={
-    userId: null,
+    user_id: null,
     username: "",
-    url: ""
+    url: "",
+    password: ""
 };
 
 const GET_SESSION ="GET_SESSION";
@@ -18,14 +19,14 @@ export function getSession(){
     }
 };
 
-export function registerUser(){
+export function registerUser(newUser){
     return{
         type: REGISTER_USER,
         payload: axios.post("/auth/register", newUser)
     }
 };
 
-export function loginUser(){
+export function loginUser(user){
     return{
         type: LOGIN_USER,
         payload: axios.post("/auth/login", user)

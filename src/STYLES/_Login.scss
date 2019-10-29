@@ -1,4 +1,4 @@
-.loginDiv{
+.auth-page{
     border-width: .2ch;
     border-color: black;
     border-style: solid;
@@ -35,12 +35,12 @@
     width:10vw;
 }
 
-.buttons{
-    display:flex;
-    justify-content:space-evenly;
-    margin-top:25px;
+// .buttons{
+//     display:flex;
+//     justify-content:space-evenly;
+//     margin-top:25px;
 
-}
+// }
 .username, .password{
     display: flex;
     margin-left:70px;
