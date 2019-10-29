@@ -7,10 +7,8 @@
     position: relative;
     left: 35vw;
     top:17vh;
-    // display:flex;
     background-color:#FF9770;
     border-radius: 8px 10px;
-    // justify-content: center;
 }
 .loginBackground{
     background-color:pink;
@@ -35,12 +33,6 @@
     width:10vw;
 }
 
-// .buttons{
-//     display:flex;
-//     justify-content:space-evenly;
-//     margin-top:25px;
-
-// }
 .username, .password{
     display: flex;
     margin-left:70px;
